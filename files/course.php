@@ -5,16 +5,19 @@
 
 <!--after submit-->
 <?php
+
 include 'action/Connection.php';
-include 'action/Department.php';
-if(isset($_POST['submit_department'])){
+include 'action/Course.php';
+
+if(isset($_POST['submit_course'])){
 
     /**/
 
+
     //making object
-    $department = new Department();
+    $course = new Course();
     //
-    $department->register($_POST['department_name'],$_POST['department_short_name']);
+    $course->register($_POST['course_code'],$_POST['course_name']);
 
 
 }
@@ -23,7 +26,7 @@ if(isset($_POST['submit_department'])){
 ?>
 
 <!--title tag will be there always-->
-<title>Register Teacher</title>
+<title>Course</title>
 
 <!--style bootstrap css -->
 <?php include '../partials/basic_css.php'?>
@@ -57,13 +60,13 @@ if(isset($_POST['submit_department'])){
 
             <div class="row justify-content-center">
 
-                <!--department register-->
+                <!--course register register-->
                 <div class="col-6">
 
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="text-center">Register Department</h3>
+                            <h3 class="text-center">Register Course</h3>
 
 
                         </div>
@@ -75,21 +78,21 @@ if(isset($_POST['submit_department'])){
 
                                 <div class="form-group">
 
-                                    <label for="department_name">Department Name</label>
-                                    <input type="text" class="form-control" id="department_name" name="department_name" required>
+                                    <label for="course_code">Course Code</label>
+                                    <input type="text" class="form-control" id="course_code" name="course_code" required>
 
                                 </div>
 
                                 <div class="form-group">
 
-                                    <label for="department_short_name">Department Short Name</label>
-                                    <input type="text" class="form-control" id="department_short_name" name="department_short_name"   required>
+                                    <label for="course_name">Course Name</label>
+                                    <input type="text" class="form-control" id="course_name" name="course_name"   required>
 
                                 </div>
 
                                 <div class="form-group text-center">
 
-                                    <input type="submit" class="btn btn-success " name="submit_department" value="Register Department">
+                                    <input type="submit" class="btn btn-success " name="submit_course" value="Register Course">
 
 
                                 </div>
@@ -105,7 +108,7 @@ if(isset($_POST['submit_department'])){
 
                 </div>
 
-                <!--all the departments-->
+                <!--all the course-->
                 <div class="col-5">
 
                     <div class="card">
@@ -122,8 +125,8 @@ if(isset($_POST['submit_department'])){
 
                                 <thead>
                                 <tr>
-                                    <th>Dep. Name</th>
-                                    <th>Dep. Short Name</th>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
                                 </tr>
                                 </thead>
 
@@ -133,20 +136,18 @@ if(isset($_POST['submit_department'])){
 
                                 <?php
 
+                                $course_obj = new Course();
 
-
-                                $dep_obj = new Department();
-
-                                $departments = $dep_obj->getAllDepartment();
+                                $courses = $course_obj->getAllCourse();
 
                                 //traversing department
 
-                                while ($department = $departments->fetch_object()){
+                                while ($course = $courses->fetch_object()){
 
                                     ?>
                                     <tr>
-                                        <td><?php echo $department->name ?></td>
-                                        <td><?php echo $department->sort_name ?></td>
+                                        <td><?php echo $course->course_code ?></td>
+                                        <td><?php echo $course->course_name ?></td>
                                     </tr>
 
                                     <?php
@@ -169,7 +170,7 @@ if(isset($_POST['submit_department'])){
 
                 </div>
 
-                <!--end of all the departments-->
+                <!--end of all the course-->
 
 
 

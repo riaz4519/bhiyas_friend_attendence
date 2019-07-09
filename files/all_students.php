@@ -1,15 +1,24 @@
 
+
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
 
+<?php if (!isset($_SESSION['admin_id'])) {
+
+    header('Location: index.php');
+} ?>
+
+<!--after submit-->
 <?php
+
 include 'action/Connection.php';
 
-include 'action/Teacher.php';
+include 'action/Student.php';
+
 ?>
 
 <!--title tag will be there always-->
-<title>Register Teacher</title>
+<title>Register Student</title>
 
 <!--style bootstrap css -->
 <?php include '../partials/basic_css.php'?>
@@ -43,72 +52,83 @@ include 'action/Teacher.php';
 
             <div class="row justify-content-center">
 
+                <!--student register-->
+
                 <div class="col-10">
 
-                    <!--getting all the teacher-->
                     <div class="card">
 
                         <div class="card-header">
+                            <h3 class="text-center">All students</h3>
 
-                            <h3>All Teacher</h3>
 
                         </div>
+
                         <div class="card-body">
+
                             <table class="table table-bordered">
 
                                 <thead>
-                                <tr>
-                                    <th>Teacher ID</th>
-                                    <th>Name </th>
-                                    <th>Teacher Email</th>
 
-                                </tr>
+                                    <tr>
+                                        <th>
+
+                                            Student id
+
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Department</th>
+                                    </tr>
 
                                 </thead>
-
                                 <tbody>
-
-                                <!--value-->
 
                                 <?php
 
+                                    $student_obj = new Student();
+
+                                    $students = $student_obj->getAllStudent();
+
+                                    while ($student = $students->fetch_object()){
 
 
-                                $teacher_obj = new Teacher();
 
-                                $teachers = $teacher_obj->getAllTeacher();
-
-                                while ($teacher = $teachers->fetch_object()){
-
-                                    ?>
-
-                                    <tr>
-                                        <td><?php echo $teacher->teacher_id_number?></td>
-                                        <td><?php echo $teacher->name?></td>
-                                        <td><?php echo $teacher->email?></td>
-                                    </tr>
-
-                                    <?php
-
-                                }
                                 ?>
 
+                                    <tr>
+                                        <td><?php echo $student->student_id ?></td>
+                                        <td><?php echo $student->name ?></td>
+                                        <td><?php echo $student->email ?></td>
+                                        <td><?php echo $student->depart ?></td>
+                                    </tr>
 
+                                <?php
+
+                                    }
+
+                                ?>
                                 </tbody>
 
+
+
                             </table>
+
+
                         </div>
 
                     </div>
 
 
 
-                    <!--end of getting teacher-->
-
-
-
 
                 </div>
+
+                <!--end of student register-->
+
+
+
+
 
             </div>
 

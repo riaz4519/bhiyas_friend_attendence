@@ -1,5 +1,17 @@
+<!--top meta tags-->
+<?php include "./partials/header_meta.php"?>
 
 
+<!--if already login then redirect-->
+
+<?php
+    if (isset($_SESSION['admin_id'])){
+
+        header('Location: files/admin_dashboard.php');
+    }
+
+
+?>
 
 <!--catch login -->
 <?php
@@ -24,8 +36,7 @@ if (isset($_POST['admin_login'])){
 
 ?>
 
-<!--top meta tags-->
-<?php include "./partials/header_meta.php"?>
+
 
     <!--title tag will be there always-->
     <title>login</title>
