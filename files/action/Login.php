@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once 'Connection.php';
 class login extends Connection
 {

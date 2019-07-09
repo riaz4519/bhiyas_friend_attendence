@@ -36,6 +36,8 @@
 
         <div class="col-9">
 
+            <?php echo  $_SESSION['admin_name'] ?>
+
         </div>
 
     </div>

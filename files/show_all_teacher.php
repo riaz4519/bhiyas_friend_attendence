@@ -1,5 +1,5 @@
 
-
+<?php  include 'action/Teacher.php'; ?>
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
 
@@ -60,7 +60,7 @@
 
                             <?php
 
-                            include 'action/Teacher.php';
+
 
                             $teacher_obj = new Teacher();
 

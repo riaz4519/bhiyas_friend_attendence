@@ -1,12 +1,12 @@
 
 <?php
 
+/*including the teacher class*/
+include 'action/Connection.php';
+include 'action/Teacher.php';
 /*when the register button is clicked it will come here*/
     if(isset($_POST['submit_teacher'])){
 
-
-        /*including the teacher class*/
-        include 'action/Teacher.php';
 
         /*making object of teacher class*/
         $teacher = new Teacher();

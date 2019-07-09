@@ -22,4 +22,13 @@ class Department extends Connection
 
     }
 
+    public function getAllDepartment(){
+
+
+        $query = "SELECT * from department where 1";
+
+        return $this->connect()->query($query);
+
+    }
+
 }

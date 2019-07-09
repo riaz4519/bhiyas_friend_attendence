@@ -15,7 +15,9 @@
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    <!--name from session-->
-                    <?php echo $_SESSION['admin_name']?>
+                    <?php if (isset($_SESSION['admin_name'])){
+                        echo $_SESSION['admin_name'];
+                    }?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Action</a>
