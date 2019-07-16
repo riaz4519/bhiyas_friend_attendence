@@ -9,5 +9,6 @@
     <li class="list-group-item border <?php echo $url == 'department.php' ? 'border-success':'' ?>"><a href="department.php">Department</a> </li>
     <li class="list-group-item border <?php echo $url == 'course.php' ? 'border-success':'' ?>"><a href="course.php">Course</a></li>
     <li class="list-group-item border <?php echo $url == 'semester.php' ? 'border-success':'' ?>"><a href="semester.php">Semester</a></li>
+    <li class="list-group-item border <?php echo $url == 'add_teacher_course.php' ? 'border-success':'' ?>"><a href="add_teacher_course.php">Teacher Courses</a></li>
 </ul>
 <?php echo $url == '/bhiyas_friend/attendance/files/course.php' ? 'border-success':'' ?>

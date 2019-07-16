@@ -86,6 +86,7 @@ include 'action/Teacher.php';
                                         <td><?php echo $teacher->teacher_id_number?></td>
                                         <td><?php echo $teacher->name?></td>
                                         <td><?php echo $teacher->email?></td>
+                                        <td><?php echo $teacher->email?></td>
                                     </tr>
 
                                     <?php

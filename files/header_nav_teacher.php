@@ -17,9 +17,9 @@
         <form class="form-inline my-3 my-lg-0">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   <!--name from session-->
-                    <?php if (isset($_SESSION['admin_name'])){
-                        echo $_SESSION['admin_name'];
+                    <!--name from session-->
+                    <?php if (isset($_SESSION['teacher_name'])){
+                        echo $_SESSION['teacher_name'];
                     }?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

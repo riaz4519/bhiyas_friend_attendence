@@ -25,7 +25,11 @@ if (isset($_POST['admin_login'])){
 }elseif(isset($_POST['teacher_login'])){
     include 'files/action/Login.php';
 
+
+
     $login = new Login();
+
+    echo  $login->teacherLogin($_POST['email'],$_POST['password']);
 
 }
 

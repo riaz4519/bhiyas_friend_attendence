@@ -1,6 +1,4 @@
 <?php
-
-session_start();
 require_once 'Connection.php';
 class login extends Connection
 {
@@ -26,7 +24,21 @@ class login extends Connection
 
  public function teacherLogin($email,$password){
 
-     return $email;
+
+     $query = "select * from teacher where email='$email' and password='$password'";
+
+     if($login_success = $this->connect()->query($query)){
+
+         $teacher = $login_success->fetch_object();
+
+         $_SESSION['teacher_id'] = $teacher->id;
+         $_SESSION['teacher_name'] = $teacher->name;
+
+         header('Location: files/teacher_dashboard.php');
+
+
+
+     }
 
 
  }
