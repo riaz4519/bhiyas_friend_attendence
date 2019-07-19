@@ -5,8 +5,8 @@
 <!--after submit-->
 <?php
 include 'action/Connection.php';
-
-
+include 'action/Teacher.php';
+include 'action/Semester.php';
 
 ?>
 
@@ -51,7 +51,7 @@ include 'action/Connection.php';
 
                         <div class="card-header">
 
-                            <h3 class="text-center">Add Course To Teacher</h3>
+                            <h3 class="text-center">Select Semester</h3>
 
                         </div>
                         <div class="card-body">
@@ -64,45 +64,14 @@ include 'action/Connection.php';
 
                                     <div class="form-row">
 
-                                        <!-- getting the teacher  -->
-                                        <div class="col">
 
-                                            <label for="teacher">Select Teacher</label>
-                                            <select id="teacher" name="teacher" class="form-control" required>
-
-
-                                                <option disabled <?php echo isset($_GET['semester']) ? '' :'selected' ?>></option>
-                                                <?php
-
-                                                $teacher = new Teacher();
-
-                                                $teachers  = $teacher->getAllTeacher();
-
-                                                while ($single_teacher = $teachers->fetch_object()){
-
-
-
-                                                    ?>
-
-                                                    <option <?php echo  $_GET['teacher'] == $single_teacher->id ? 'selected':'' ?>  value="<?php echo $single_teacher->id ?>"><?php echo $single_teacher->name ?></option>
-
-                                                    <?php
-
-                                                }
-                                                ?>
-
-
-                                            </select>
-
-                                        </div>
-                                        <!--end of getting the teacher-->
 
                                         <!--getting the semester-->
                                         <div class="col">
 
                                             <label for="semester">Select Semester</label>
                                             <select id="semester" name="semester" class="form-control" required>
-                                                <option disabled <?php echo isset($_GET['semester']) ? '' :'selected' ?>></option>
+                                                <option disabled></option>
                                                 <?php
 
                                                 $semester = new Semester();
@@ -115,7 +84,7 @@ include 'action/Connection.php';
 
                                                     ?>
 
-                                                    <option <?php echo  $_GET['semester'] == $single_semester->id ? 'selected':'' ?> value="<?php echo $single_semester->id ?>"><?php echo $single_semester->semester ?></option>
+                                                    <option  value="<?php echo $single_semester->id ?>"><?php echo $single_semester->semester ?></option>
 
                                                     <?php
 
@@ -126,15 +95,15 @@ include 'action/Connection.php';
                                             </select>
 
                                         </div>
+
                                         <!--end of getting the semester-->
-                                        <!--submit button-->
                                         <div class="col">
 
                                             <label for="submit">..</label>
-                                            <input id="submit" type="submit" class="form-control btn btn-secondary" name="search_teacher" value="Add">
+                                            <input id="submit" type="submit" class="form-control btn btn-secondary" name="search_course" value="Course">
 
                                         </div>
-                                        <!--end of submit button-->
+
 
 
 
@@ -163,13 +132,83 @@ include 'action/Connection.php';
 
             </div>
 
+            <?php
+
+            if (isset($_GET['semester'])){
+
+
+
+
+            ?>
+
             <div class="row justify-content-center">
 
+
+                <!--already added-->
+                <div class="col-10">
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <h3 class="text-center">Already Added</h3>
+
+                        </div>
+                        <div class="card-body">
+
+                            <!--course -->
+
+                            <div class="search-for-teacher">
+
+                                <ul class="list-group">
+
+
+
+                                <?php
+
+                                $course = new Teacher();
+
+                                $teacher_id = $_SESSION['teacher_id'];
+                                $semester_id = $_GET['semester'];
+
+                                $courses = $course->courseAlreadyAdded($teacher_id,$semester_id);
+
+                                while ($added_course = $courses->fetch_object()) {
+
+
+                                    ?>
+
+
+                                        <li class="list-group-item"><?php echo $added_course->course_name ?></li>
+
+
+
+
+                                    <?php
+
+                                }
+
+                                ?>
+                                </ul>
+
+
+                            </div>
+
+                            <!--end  course-->
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--end of already added-->
 
 
 
 
             </div>
+
+            <?php }  ?>
 
 
         </div>

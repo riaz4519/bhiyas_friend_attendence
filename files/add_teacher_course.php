@@ -2,6 +2,9 @@
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
 
+
+
+
 <?php
 include 'action/Connection.php';
 
@@ -10,7 +13,29 @@ include 'action/Teacher.php';
 //semester
 include 'action/Semester.php';
 ?>
+<?php
 
+    if (isset($_POST['add_course'])){
+
+        $current = $_SERVER['HTTP_REFERER'];
+
+        $selected_course = $_POST['course_add'];
+        $teacher_id = $_POST['teacher_id'];
+        $semester_id = $_POST['semester_id'];
+
+        if (count($selected_course) > 0){
+
+
+            $teacher = new Teacher();
+            $teacher->addCourse($teacher_id,$semester_id,$selected_course);
+
+        }
+
+        header('Location: '.$current);
+
+    }
+
+?>
 <!--title tag will be there always-->
 <title>Register Teacher</title>
 
@@ -58,6 +83,8 @@ include 'action/Semester.php';
                         </div>
                         <div class="card-body">
 
+                            <!--search teachers course -->
+
                             <div class="search-for-teacher">
 
                                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="get">
@@ -71,7 +98,7 @@ include 'action/Semester.php';
                                            <select id="teacher" name="teacher" class="form-control" required>
 
 
-                                               <option disabled selected></option>
+                                               <option disabled <?php echo isset($_GET['semester']) ? '' :'selected' ?>></option>
                                                <?php
 
                                                 $teacher = new Teacher();
@@ -84,7 +111,7 @@ include 'action/Semester.php';
 
                                                ?>
 
-                                                    <option value="<?php echo $single_teacher->id ?>"><?php echo $single_teacher->name ?></option>
+                                                    <option <?php echo  $_GET['teacher'] == $single_teacher->id ? 'selected':'' ?>  value="<?php echo $single_teacher->id ?>"><?php echo $single_teacher->name ?></option>
 
                                                <?php
 
@@ -102,7 +129,7 @@ include 'action/Semester.php';
 
                                             <label for="semester">Select Semester</label>
                                             <select id="semester" name="semester" class="form-control" required>
-                                                <option disabled selected></option>
+                                                <option disabled <?php echo isset($_GET['semester']) ? '' :'selected' ?>></option>
                                                 <?php
 
                                                 $semester = new Semester();
@@ -115,7 +142,7 @@ include 'action/Semester.php';
 
                                                     ?>
 
-                                                    <option value="<?php echo $single_semester->id ?>"><?php echo $single_semester->semester ?></option>
+                                                    <option <?php echo  $_GET['semester'] == $single_semester->id ? 'selected':'' ?> value="<?php echo $single_semester->id ?>"><?php echo $single_semester->semester ?></option>
 
                                                     <?php
 
@@ -144,6 +171,8 @@ include 'action/Semester.php';
 
                             </div>
 
+                            <!--end of search teacher course-->
+
                         </div>
 
                     </div>
@@ -155,9 +184,165 @@ include 'action/Semester.php';
 
 
 
+
+
                 </div>
 
             </div>
+
+            <!--showing the course-->
+
+            <?php
+
+                if (isset($_GET['semester']) && isset($_GET['teacher']) ){
+
+
+
+            ?>
+
+            <div class="row justify-content-center mt-5 ">
+
+                <div class="col-10">
+
+                    <div class="row">
+
+                        <!--left to add-->
+
+                        <div class="col">
+
+                            <div class="card">
+
+                                <div class="card-header">
+
+                                    <h3 class="text-center">Course Left to Add</h3>
+
+                                </div>
+                                <div class="card-body">
+
+                                    <!--course -->
+
+                                    <div class="search-for-teacher">
+
+                                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+
+                                            <input type="text" name="teacher_id" value="<?php echo $_GET['teacher'] ?>" hidden>
+                                            <input type="text" name="semester_id" value="<?php echo $_GET['semester'] ?>" hidden>
+
+                                            <?php
+
+                                                $course = new Teacher();
+                                                $teacher_id = $_GET['teacher'];
+                                                $semester_id = $_GET['semester'];
+
+                                                $courses = $course->courseLeftToAdd($teacher_id,$semester_id);
+
+
+                                                while ($single_course = $courses->fetch_object()){
+
+
+                                            ?>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="course_add[]" type="checkbox" value="<?php echo $single_course->id?>" id="course<?php echo $single_course->id?>" >
+                                                <label class="form-check-label" for="course<?php echo $single_course->id?>">
+                                                    <?php echo  $single_course->course_name ?>
+                                                </label>
+                                            </div>
+
+                                            <?php
+
+                                                }
+
+
+                                            ?>
+
+                                            <input type="submit" name="add_course" value="Add Course" class="btn btn-secondary mt-5 text-center">
+
+                                        </form>
+
+                                    </div>
+
+                                    <!--end  course-->
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--end of left to add-->
+
+                        <!--already added-->
+                        <div class="col">
+
+                            <div class="card">
+
+                                <div class="card-header">
+
+                                    <h3 class="text-center">Already Added</h3>
+
+                                </div>
+                                <div class="card-body">
+
+                                    <!--course -->
+
+                                    <div class="search-for-teacher">
+
+                                        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+
+
+                                            <?php
+
+                                            $course = new Teacher();
+
+                                            $teacher_id = $_GET['teacher'];
+                                            $semester_id = $_GET['semester'];
+
+                                            $courses = $course->courseAlreadyAdded($teacher_id,$semester_id);
+
+                                            while ($added_course = $courses->fetch_object()) {
+
+
+                                                ?>
+
+                                                <ul class="list-group">
+                                                    <li class="list-group-item"><?php echo $added_course->course_name ?></li>
+
+                                                </ul>
+
+
+                                                <?php
+
+                                            }
+
+                                            ?>
+
+                                        </form>
+
+                                    </div>
+
+                                    <!--end  course-->
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--end of already added-->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <?php
+
+                }
+
+            ?>
+
+            <!--end showing the course-->
+
 
 
         </div>
