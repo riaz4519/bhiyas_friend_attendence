@@ -1,18 +1,20 @@
 <?php
 
-require 'Connection.php';
 
 
-class Department extends Connection
+
+class Department
 {
 
     public function register($name,$sort_name){
+
+        $connect = new Connection();
 
         $query = "insert into department(name,sort_name)values ('$name','$sort_name')";
 
         try{
 
-            return $this->connect()->query($query);
+            return $connect->connect()->query($query);
 
         }catch (Exception $exception){
 
@@ -24,10 +26,10 @@ class Department extends Connection
 
     public function getAllDepartment(){
 
-
+        $connect = new Connection();
         $query = "SELECT * from department where 1";
 
-        return $this->connect()->query($query);
+        return $connect->connect()->query($query);
 
     }
 

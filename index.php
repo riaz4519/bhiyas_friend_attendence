@@ -1,5 +1,17 @@
+<!--top meta tags-->
+<?php include "./partials/header_meta.php"?>
 
 
+<!--if already login then redirect-->
+
+<?php
+    if (isset($_SESSION['admin_id'])){
+
+        header('Location: files/admin_dashboard.php');
+    }
+
+
+?>
 
 <!--catch login -->
 <?php
@@ -13,7 +25,11 @@ if (isset($_POST['admin_login'])){
 }elseif(isset($_POST['teacher_login'])){
     include 'files/action/Login.php';
 
+
+
     $login = new Login();
+
+    echo  $login->teacherLogin($_POST['email'],$_POST['password']);
 
 }
 
@@ -24,8 +40,7 @@ if (isset($_POST['admin_login'])){
 
 ?>
 
-<!--top meta tags-->
-<?php include "./partials/header_meta.php"?>
+
 
     <!--title tag will be there always-->
     <title>login</title>

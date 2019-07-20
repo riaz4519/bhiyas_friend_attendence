@@ -1,8 +1,17 @@
 
 
+
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
+<?php
 
+if (!isset($_SESSION['admin_id'])) {
+
+    header('Location: index.php');
+}
+
+
+?>
 <!--title tag will be there always-->
 <title>Admin Dashboard</title>
 

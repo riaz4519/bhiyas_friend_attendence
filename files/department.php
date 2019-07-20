@@ -1,24 +1,25 @@
-<!--after submit-->
-<?php
-
-include 'action/Department.php';
-    if(isset($_POST['submit_department'])){
-
-        /**/
-
-        //making object
-        $department = new Department();
-        //
-        $department->register($_POST['department_name'],$_POST['department_short_name']);
-
-
-    }
-
-
-?>
 
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
+
+<!--after submit-->
+<?php
+include 'action/Connection.php';
+include 'action/Department.php';
+if(isset($_POST['submit_department'])){
+
+    /**/
+
+    //making object
+    $department = new Department();
+    //
+    $department->register($_POST['department_name'],$_POST['department_short_name']);
+
+
+}
+
+
+?>
 
 <!--title tag will be there always-->
 <title>Register Teacher</title>

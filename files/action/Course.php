@@ -1,18 +1,19 @@
 <?php
 
-include 'Connection.php';
 
-class Course extends Connection
+
+class Course
 {
 
     //course register
     public function register($course_code,$course_name){
 
+        $connect = new Connection();
 
         $query = "insert into course(course_code,course_name)values ('$course_code','$course_name')";
 
         try{
-            return $result = $this->connect()->query($query);
+            return $result = $connect->connect()->query($query);
         }catch (Exception $exception){
 
             return $exception->getMessage();
@@ -23,10 +24,18 @@ class Course extends Connection
 
     public function getAllCourse(){
 
+        $connect = new Connection();
 
         $query = "select * from course where  1";
 
-        return $this->connect()->query($query);
+        try{
+            return $connect->connect()->query($query);
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
 
     }
 

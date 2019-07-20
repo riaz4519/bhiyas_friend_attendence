@@ -1,29 +1,29 @@
 
+<!--top meta tags-->
+<?php include "../partials/header_meta.php"?>
+
 <?php
 
 /*including the teacher class*/
 include 'action/Connection.php';
 include 'action/Teacher.php';
 /*when the register button is clicked it will come here*/
-    if(isset($_POST['submit_teacher'])){
+if(isset($_POST['submit_teacher'])){
 
 
-        /*making object of teacher class*/
-        $teacher = new Teacher();
+    /*making object of teacher class*/
+    $teacher = new Teacher();
 
-        /*sending the values to teacher class - register function*/
-        $result = $teacher->register($_POST['teacher_id'],$_POST['teacher_name'],$_POST['teacher_email'],$_POST['teacher_password']);
+    /*sending the values to teacher class - register function*/
+    $result = $teacher->register($_POST['teacher_id'],$_POST['teacher_name'],$_POST['teacher_email'],$_POST['teacher_password']);
 
 
-    }
+}
 
-    /*end of register*/
+/*end of register*/
 
 
 ?>
-
-<!--top meta tags-->
-<?php include "../partials/header_meta.php"?>
 
 <!--title tag will be there always-->
 <title>Register Teacher</title>

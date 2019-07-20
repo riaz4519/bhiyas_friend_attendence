@@ -1,7 +1,12 @@
+
+
+<!--top meta tags-->
+<?php include "../partials/header_meta.php"?>
+
 <!--after submit-->
 <?php
 
-
+include 'action/Connection.php';
 include 'action/Course.php';
 
 if(isset($_POST['submit_course'])){
@@ -19,9 +24,6 @@ if(isset($_POST['submit_course'])){
 
 
 ?>
-
-<!--top meta tags-->
-<?php include "../partials/header_meta.php"?>
 
 <!--title tag will be there always-->
 <title>Course</title>

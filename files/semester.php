@@ -1,3 +1,8 @@
+
+
+<!--top meta tags-->
+<?php include "../partials/header_meta.php"?>
+
 <!--after submit-->
 <?php
 
@@ -20,9 +25,6 @@ if(isset($_POST['submit_semester'])){
 
 
 ?>
-
-<!--top meta tags-->
-<?php include "../partials/header_meta.php"?>
 
 <!--title tag will be there always-->
 <title>Semester</title>
