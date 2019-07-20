@@ -68,20 +68,28 @@ class Teacher
         $connect = new Connection();
 
         $added_course =  $this->courseAlreadyAdded($teacher_id,$semester_id);
-        $already_added = '';
 
-        while ($single_course = $added_course->fetch_object()){
+        if ($added_course->num_rows > 0){
+            $already_added = '';
+
+            while ($single_course = $added_course->fetch_object()){
 
 
-            $already_added .=  $single_course->id.',';
+                $already_added .=  $single_course->id.',';
 
 
+            }
+
+            $already_added = substr($already_added, 0, -1);
+
+
+            $query = "select * from course where  id not  in ($already_added)";
+        }else{
+
+            $query = "select * from course ";
         }
 
-        $already_added = substr($already_added, 0, -1);
 
-
-       $query = "select * from course where  id not  in ($already_added)";
 
         try{
             return $connect->connect()->query($query);
