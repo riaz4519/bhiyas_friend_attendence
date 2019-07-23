@@ -61,6 +61,7 @@ include 'action/Teacher.php';
                                     <th>Teacher ID</th>
                                     <th>Name </th>
                                     <th>Teacher Email</th>
+                                    <th>Dept.</th>
 
                                 </tr>
 
@@ -86,7 +87,7 @@ include 'action/Teacher.php';
                                         <td><?php echo $teacher->teacher_id_number?></td>
                                         <td><?php echo $teacher->name?></td>
                                         <td><?php echo $teacher->email?></td>
-                                        <td><?php echo $teacher->email?></td>
+                                        <td><?php echo $teacher->dept_name?></td>
                                     </tr>
 
                                     <?php

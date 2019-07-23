@@ -32,7 +32,7 @@ class Teacher
 
         $connect = new Connection();
 
-        $query = "select * from teacher";
+        $query = "select t.id as id,t.teacher_id_number as teacher_id_number,t.name as name,t.email as email,department.name as dept_name  from teacher as t join department on t.department_id = department.id";
 
         try{
 
