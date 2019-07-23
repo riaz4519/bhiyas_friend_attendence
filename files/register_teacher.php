@@ -7,6 +7,7 @@
 /*including the teacher class*/
 include 'action/Connection.php';
 include 'action/Teacher.php';
+include 'action/Department.php';
 /*when the register button is clicked it will come here*/
 if(isset($_POST['submit_teacher'])){
 
@@ -15,7 +16,7 @@ if(isset($_POST['submit_teacher'])){
     $teacher = new Teacher();
 
     /*sending the values to teacher class - register function*/
-    $result = $teacher->register($_POST['teacher_id'],$_POST['teacher_name'],$_POST['teacher_email'],$_POST['teacher_password']);
+    $result = $teacher->register($_POST['teacher_id'],$_POST['teacher_name'],$_POST['teacher_email'],$_POST['teacher_password'],$_POST['department_id']);
 
 
 }
@@ -78,6 +79,31 @@ if(isset($_POST['submit_teacher'])){
 
                                 <div class="form-group">
 
+                                    <label for="department_id">Select Department</label>
+                                    <select class="form-control" id="department_id" name="department_id" required>
+                                        <option selected disabled></option>
+
+                                        <!--get all the department-->
+                                        <?php
+
+                                            $department = new Department();
+
+                                            $departments = $department->getAllDepartment();
+
+                                            //traversing the department
+
+                                            while ($single_dept = $departments->fetch_object()){
+
+                                        ?>
+                                                <option value="<?php echo $single_dept->id ?>"><?php echo  $single_dept->name ?></option>
+
+                                        <?php } ?>
+
+                                    </select>
+
+                                </div>
+                                <div class="form-group">
+
                                     <label for="teacher_id">Teacher ID (unique)</label>
                                     <input type="text" class="form-control" id="teacher_id" name="teacher_id" required>
 
@@ -103,6 +129,7 @@ if(isset($_POST['submit_teacher'])){
                                     <input type="password" class="form-control" id="teacher_password" name="teacher_password" required>
 
                                 </div>
+
 
                                 <div class="form-group text-center">
 

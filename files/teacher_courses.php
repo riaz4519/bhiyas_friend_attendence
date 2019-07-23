@@ -160,7 +160,22 @@ include 'action/Semester.php';
 
                             <div class="search-for-teacher">
 
-                                <ul class="list-group">
+                                <table class="table table-bordered">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>Course Name</th>
+                                            <th>Credit</th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+
+
+
 
 
 
@@ -179,7 +194,10 @@ include 'action/Semester.php';
                                     ?>
 
 
-                                        <li class="list-group-item"><?php echo $added_course->course_name ?></li>
+                                        <tr>
+                                            <td><?php echo $added_course->course_name ?></td>
+                                            <td><?php echo $added_course->credit ?></td>
+                                        </tr>
 
 
 
@@ -189,7 +207,12 @@ include 'action/Semester.php';
                                 }
 
                                 ?>
-                                </ul>
+
+                                    </tbody>
+
+
+                                </table>
+
 
 
                             </div>

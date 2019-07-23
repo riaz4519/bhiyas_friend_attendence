@@ -30,7 +30,7 @@ class Student
 
         $connect = new Connection();
 
-        $query = "select st.student_id as student_id,st.name  as name,st.email as email,dep.name as depart from student as st join department as dep on st.department_id = dep.id";
+        $query = "select st.id as id ,st.student_id as student_id,st.name  as name,st.email as email,dep.name as depart from student as st join department as dep on st.department_id = dep.id";
 
         try{
 

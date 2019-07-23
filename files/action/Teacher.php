@@ -6,11 +6,11 @@ class Teacher
 {
 
     /*this function is for registering the teacher */
-    public function register($teacher_id,$teacher_name,$email,$password){
+    public function register($teacher_id,$teacher_name,$email,$password,$department_id){
 
         $connect = new Connection();
         /*query of registering the teacher */
-       $query = "insert into teacher(teacher_id_number,name,email,password)values ('$teacher_id','$teacher_name','$email','$password')";
+       $query = "insert into teacher(teacher_id_number,name,email,password,department_id)values ('$teacher_id','$teacher_name','$email','$password','$department_id')";
 
 
         try{
@@ -49,7 +49,7 @@ class Teacher
 
         $connect = new Connection();
 
-        $query = "select course.course_name as course_name,course.id as id from course_teacher join course on course.id = course_teacher.course_id where course_teacher.teacher_id ='$teacher_id' and course_teacher.semester_id='$semester_id'";
+        $query = "select course.course_name as course_name,course.id as id,course.credit as credit from course_teacher join course on course.id = course_teacher.course_id where course_teacher.teacher_id ='$teacher_id' and course_teacher.semester_id='$semester_id'";
 
 
 
@@ -113,6 +113,80 @@ class Teacher
         }
 
 
+
+    }
+
+    public function courseLeftToAddStudent($teacher_id,$semester_id){
+
+        $connect = new Connection();
+
+        $added_course =  $this->studentCourseAddedAlready($teacher_id,$semester_id);
+
+        if ($added_course->num_rows > 0){
+            $already_added = '';
+
+            while ($single_course = $added_course->fetch_object()){
+
+
+                $already_added .=  $single_course->id.',';
+
+
+            }
+
+            $already_added = substr($already_added, 0, -1);
+
+
+            $query = "select * from course where  id not  in ($already_added)";
+
+
+        }else{
+
+            $query = "select * from course ";
+        }
+
+
+
+        try{
+            return $connect->connect()->query($query);
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
+    }
+
+    public function studentCourseAddedAlready($student_id,$semester_id){
+
+        $connect = new Connection();
+
+
+
+        $query = "select course.course_name as course_name,course.id as id,course.credit as credit from course_student join course on course.id = course_student.course_id where course_student.student_id ='$student_id' and course_student.semester_id='$semester_id'";
+
+
+
+        try{
+            return $connect->connect()->query($query);
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
+    }
+
+    public function teacherAddCourseToStudent($student_id,$semester_id,$courses){
+
+        $connect = new Connection();
+
+        foreach ($courses as $course){
+
+            $query = "insert into course_student(student_id,semester_id,course_id)values ('$student_id','$semester_id','$course')";
+
+            $connect->connect()->query($query);
+
+        }
 
     }
 

@@ -8,6 +8,7 @@
 
 include 'action/Connection.php';
 include 'action/Course.php';
+include 'action/Department.php';
 
 if(isset($_POST['submit_course'])){
 
@@ -17,7 +18,7 @@ if(isset($_POST['submit_course'])){
     //making object
     $course = new Course();
     //
-    $course->register($_POST['course_code'],$_POST['course_name']);
+    $course->register($_POST['course_code'],$_POST['course_name'],$_POST['department_id'],$_POST['course_credit']);
 
 
 }
@@ -61,7 +62,7 @@ if(isset($_POST['submit_course'])){
             <div class="row justify-content-center">
 
                 <!--course register register-->
-                <div class="col-6">
+                <div class="col-5">
 
                     <div class="card">
 
@@ -78,6 +79,31 @@ if(isset($_POST['submit_course'])){
 
                                 <div class="form-group">
 
+                                    <label for="department_id">Select Department</label>
+                                    <select class="form-control" id="department_id" name="department_id" required>
+                                        <option selected disabled></option>
+
+                                        <!--get all the department-->
+                                        <?php
+
+                                        $department = new Department();
+
+                                        $departments = $department->getAllDepartment();
+
+                                        //traversing the department
+
+                                        while ($single_dept = $departments->fetch_object()){
+
+                                            ?>
+                                            <option value="<?php echo $single_dept->id ?>"><?php echo  $single_dept->name ?></option>
+
+                                        <?php } ?>
+
+                                    </select>
+
+                                </div>
+                                <div class="form-group">
+
                                     <label for="course_code">Course Code</label>
                                     <input type="text" class="form-control" id="course_code" name="course_code" required>
 
@@ -87,6 +113,12 @@ if(isset($_POST['submit_course'])){
 
                                     <label for="course_name">Course Name</label>
                                     <input type="text" class="form-control" id="course_name" name="course_name"   required>
+
+                                </div>
+                                <div class="form-group">
+
+                                    <label for="course_credit">Course Credit</label>
+                                    <input type="text" class="form-control" id="course_credit" name="course_credit"   required>
 
                                 </div>
 
@@ -109,13 +141,13 @@ if(isset($_POST['submit_course'])){
                 </div>
 
                 <!--all the course-->
-                <div class="col-5">
+                <div class="col-6">
 
                     <div class="card">
 
                         <div class="card-header">
 
-                            <h3 class="text-center">All Department</h3>
+                            <h3 class="text-center">All course</h3>
 
                         </div>
 
@@ -127,6 +159,8 @@ if(isset($_POST['submit_course'])){
                                 <tr>
                                     <th>Course Code</th>
                                     <th>Course Name</th>
+                                    <th>Credit</th>
+                                    <th>Dept</th>
                                 </tr>
                                 </thead>
 
@@ -140,6 +174,8 @@ if(isset($_POST['submit_course'])){
 
                                 $courses = $course_obj->getAllCourse();
 
+
+
                                 //traversing department
 
                                 while ($course = $courses->fetch_object()){
@@ -148,6 +184,8 @@ if(isset($_POST['submit_course'])){
                                     <tr>
                                         <td><?php echo $course->course_code ?></td>
                                         <td><?php echo $course->course_name ?></td>
+                                        <td><?php echo $course->credit ?></td>
+                                        <td><?php echo $course->dept_sort ?></td>
                                     </tr>
 
                                     <?php
