@@ -39,4 +39,17 @@ class Course
 
     }
 
+    public function getSingleCourse($course_id){
+
+        $connect = new Connection();
+
+        $query = "select * from course where id ='$course_id'";
+
+        $query_result = $connect->connect()->query($query)->fetch_object();
+
+        return $query_result;
+
+
+    }
+
 }

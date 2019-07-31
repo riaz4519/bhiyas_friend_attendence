@@ -3,12 +3,11 @@
 <?php include "../partials/header_meta.php"?>
 
 
-
-
 <?php
 include 'action/Connection.php';
 
 include 'action/Teacher.php';
+
 
 //semester
 include 'action/Semester.php';

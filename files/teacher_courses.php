@@ -167,6 +167,9 @@ include 'action/Semester.php';
                                         <tr>
                                             <th>Course Name</th>
                                             <th>Credit</th>
+                                            <th>Add Student</th>
+                                            <th>Edit/Remove Student</th>
+                                            <th>Attendance</th>
                                         </tr>
 
                                     </thead>
@@ -197,6 +200,9 @@ include 'action/Semester.php';
                                         <tr>
                                             <td><?php echo $added_course->course_name ?></td>
                                             <td><?php echo $added_course->credit ?></td>
+                                            <td><a href="techer_add_student.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-secondary">Add</a></td>
+                                            <td><a href="" class="btn btn-danger">Edit/remove</a></td>
+                                            <td><a href="" class="btn btn-success">Attendance</a></td>
                                         </tr>
 
 
