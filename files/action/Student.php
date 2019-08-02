@@ -58,11 +58,37 @@ class Student
 
         }
 
-        $already_added_to_course = substr($already_added_to_course, 0, -1);
+       $already_added_to_course = substr($already_added_to_course, 0, -1);
 
-        $query_all_students = "select * from student where id not in ($already_added_to_course) and department_id = '$department_id'";
+        if (strlen($already_added_to_course)>0){
+
+            $query_all_students = "select * from student where id not in ($already_added_to_course) and department_id = '$department_id'";
+
+        }else{
+            $query_all_students = "select * from student where  department_id = '$department_id'";
+
+        }
+
+
 
         return $query_students = $connect->connect()->query($query_all_students);
+
+
+    }
+
+    public function allTheStudentForAttendance($semester_id,$course_id,$teacher_id){
+
+        $connect = new Connection();
+
+
+        $query = "select student.name as name,student.student_id as student_id,student.id as id,course_student.id as course_student_id from student join course_student on course_student.student_id = student.id where course_student.semester_id ='$semester_id' and course_student.course_id = '$course_id' and course_student.teacher_id = '$teacher_id'";
+
+        return $query_students = $connect->connect()->query($query);
+
+
+    }
+
+    public function alreadyTakenAttendance($semester_id,$course_id,$teacher_id,$date){
 
 
     }

@@ -176,17 +176,37 @@ class Teacher
 
     }
 
-    public function teacherAddCourseToStudent($student_id,$semester_id,$courses){
+    public function teacherAddCourseToStudent($students,$semester_id,$course){
 
         $connect = new Connection();
+        $teacher = $_SESSION['teacher_id'];
 
-        foreach ($courses as $course){
+        foreach ($students as $student){
 
-            $query = "insert into course_student(student_id,semester_id,course_id)values ('$student_id','$semester_id','$course')";
+            $query = "insert into course_student(student_id,semester_id,course_id,teacher_id)values ('$student','$semester_id','$course','$teacher')";
 
             $connect->connect()->query($query);
 
         }
+
+    }
+
+    public function attendanceDetect($course_id,$teacher_id,$semester_id,$date){
+
+        //return true or false
+
+        $query = "select * from attendance_taken where course_id ='$course_id' and teacher_id='$teacher_id' and semester_id='$semester_id' and date='$date'";
+
+        $connect = new Connection();
+
+        if($connect->connect()->query($query)->num_rows >0){
+
+            return true;
+
+        }else{
+            return false;
+        }
+
 
     }
 

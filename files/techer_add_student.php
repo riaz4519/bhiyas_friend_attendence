@@ -18,6 +18,26 @@ include 'action/Course.php';
 include 'action/Semester.php';
 ?>
 
+<?php
+
+if (isset($_POST['add_student'])){
+
+    $students = $_POST['students'];
+    $semester = $_POST['semester'];
+    $course = $_POST['course'];
+
+    $teacher = new Teacher();
+
+    $teacher->teacherAddCourseToStudent($students,$semester,$course);
+
+    $return_to = $_SERVER['HTTP_REFERER'];
+
+    header('Location: '.$return_to);
+
+}
+
+?>
+
 <!--title tag will be there always-->
 <title>Teacher Add Student</title>
 
@@ -35,7 +55,7 @@ include 'action/Semester.php';
 
 
 <!--nav header-->
-<?php include 'header_nav_admin.php' ?>
+<?php include 'header_nav_teacher.php' ?>
 <!--end nav header -->
 
 <!--side nav-->
@@ -44,7 +64,7 @@ include 'action/Semester.php';
 
         <div class="col-2">
 
-            <?php include 'side_nav_admin.php'?>
+            <?php include 'side_nav_teacher.php'?>
 
         </div>
 
@@ -68,11 +88,15 @@ include 'action/Semester.php';
 
                             ?>
 
+
                             <h3 class="text-center">Add Student To <?php echo ucwords($course_detail->course_name) ?> - <?php echo strtoupper($course_detail->course_code)?></h3>
 
                         </div>
-                        <form class="card-body" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                        <form class="card-body" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 
+                            <input type="text" name="course" value="<?php echo $_GET['course']?>" hidden>
+                            <input type="text" name="semester" value="<?php echo $_GET['semester']?>" hidden>
+                            <input type="submit" name="add_student" value="Add Student" class="btn btn-success float-right mb-2" >
                             <table class="table table-bordered">
 
                                 <thead >
@@ -84,6 +108,7 @@ include 'action/Semester.php';
                                         </tr>
                                 </thead>
 
+
                                 <tbody>
 
 
@@ -91,7 +116,7 @@ include 'action/Semester.php';
 
                                     $students = new Student();
 
-                                    $all_students = $students->studentNotAddedTheCourse($_GET['course'],$_GET['semester'],$course_detail->id);
+                                    $all_students = $students->studentNotAddedTheCourse($_GET['course'],$_GET['semester'],$course_detail->department_id);
 
                                     while($single = $all_students->fetch_object()){
 
@@ -101,7 +126,7 @@ include 'action/Semester.php';
                                             <td><?php echo ucwords($single->student_id) ?></td>
                                             <td><?php echo ucwords($single->name) ?></td>
                                             <td><?php echo ucwords($single->email) ?></td>
-                                            <td><input type="checkbox" class="form-control" name="students[]"></td>
+                                            <td><input type="checkbox" value="<?php echo $single->id ?>" class="form-control" name="students[]"></td>
                                         </tr>
 
                                     <?php

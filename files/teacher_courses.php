@@ -202,7 +202,7 @@ include 'action/Semester.php';
                                             <td><?php echo $added_course->credit ?></td>
                                             <td><a href="techer_add_student.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-secondary">Add</a></td>
                                             <td><a href="" class="btn btn-danger">Edit/remove</a></td>
-                                            <td><a href="" class="btn btn-success">Attendance</a></td>
+                                            <td><a href="teacher_take_attendance.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-success">Attendance</a></td>
                                         </tr>
 
 
