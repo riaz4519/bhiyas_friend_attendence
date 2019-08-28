@@ -33,19 +33,53 @@ if (isset($_GET['set_date'])){
 
 ?>
 
+
+<?php
+
+if (isset($_POST['update_attendance'])){
+
+    $students =  $_POST['students'];
+
+
+
+    $teacher_object = new Teacher();
+
+    $teacher_object->updateAttendance($_POST['date'],$students,$_POST['course'],$_POST['semester'],$_SESSION['teacher_id']);
+
+
+    $return_same = $_SERVER['HTTP_REFERER'];
+
+    $date = $_GET['date'];
+
+    header('Location: '.$return_same);
+
+}
+
+
+
+?>
+
+
 <?php
 
     if (isset($_POST['take_attendance'])){
 
-
-        if (isset($_GET['date'])){
-
+        $students =  $_POST['students'];
 
 
-        }else{
+
+            $teacher_object = new Teacher();
+
+            $teacher_object->takeAttendance($_POST['date'],$students,$_POST['course'],$_POST['semester'],$_SESSION['teacher_id']);
 
 
-        }
+
+
+        $return_same = $_SERVER['HTTP_REFERER'];
+
+        $date = $_GET['date'];
+
+        header('Location: '.$return_same);
 
     }
 
@@ -106,7 +140,7 @@ if (isset($_GET['set_date'])){
                             ?>
 
 
-                            <h3 class="text-center">Add Student To <?php echo ucwords($course_detail->course_name) ?> - <?php echo strtoupper($course_detail->course_code)?></h3>
+                            <h3 class="text-center">Taking  Attendance of:  <?php echo ucwords($course_detail->course_name) ?> - <?php echo strtoupper($course_detail->course_code)?></h3>
 
                         </div>
 
@@ -166,6 +200,11 @@ if (isset($_GET['set_date'])){
 
                             <input type="text" name="course" value="<?php echo $_GET['course']?>" hidden>
                             <input type="text" name="semester" value="<?php echo $_GET['semester']?>" hidden>
+                            <input type="text" name="date" value="<?php if (isset($_GET['date'])){
+                                echo $_GET['date'];
+                            }else{
+                                echo date('Y-m-d');
+                            }?>" hidden>
                             <?php
 
                             if ($attendance_sure == true){
@@ -178,9 +217,25 @@ if (isset($_GET['set_date'])){
                             else{
                                 ?>
 
+
                                 <input type="submit" name="take_attendance" value="save" class="btn btn-success float-right mb-2" >
 
                                 <?php
+                            }
+                            if (!isset($_GET['date'])){
+                                ?>
+
+                                <p class="float-left">Todays Attendance </p>
+
+                            <?php
+                            }else{
+                                ?>
+
+                                <p class="float-left border border-info p-2">Attendance Of : <?php
+                                    $date =  date_create($_GET['date']);
+                                    echo date_format($date,'d-M-Y'); ?> </p>
+
+                            <?php
                             }
 
                             ?>
@@ -215,7 +270,12 @@ if (isset($_GET['set_date'])){
                                         if ($attendance_sure == true){
 
                                             ?>
-                                            <td><input type="checkbox" value="<?php echo $single->id ?>" class="form-control" name="students[]"></td>
+                                            <td><input type="checkbox" value="<?php echo $single->id ?>" class="form-control" name="students[]" <?php if ($single->present == 1){
+
+                                                ?>
+                                                    checked="checked"
+                                                        <?php
+                                                } ?>"></td>
 
                                             <?php
 

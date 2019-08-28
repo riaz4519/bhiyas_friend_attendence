@@ -210,4 +210,60 @@ class Teacher
 
     }
 
+    public function takeAttendance($date,$students,$course,$semester,$teacher){
+
+        $connect = new Connection();
+        //first insert into attendance taken
+            $query_attendance_taken = "insert into attendance_taken(course_id,teacher_id,semester_id,date)values ('$course','$teacher','$semester','$date')";
+            $connect->connect()->query($query_attendance_taken);
+
+        //insert into attendance
+
+        $students_obj = new Student();
+        $all_the_students = $students_obj->allTheStudentForAttendance($semester,$course,$teacher);
+
+        while($single_students = $all_the_students->fetch_object()){
+
+            if(in_array($single_students->id,$students)){
+
+                $query_attendance = "insert into attendance(student_id,present,date,course_id,semester_id,teacher_id)values('$single_students->id',1,'$date','$course','$semester','$teacher')";
+                $connect->connect()->query($query_attendance);
+            }else{
+                $query_attendance = "insert into attendance(student_id,present,date,course_id,semester_id,teacher_id)values('$single_students->id',0,'$date','$course','$semester','$teacher')";
+                $connect->connect()->query($query_attendance);
+            }
+
+        }
+
+        //insert one by one
+
+    }
+
+    public function updateAttendance($date,$students,$course,$semester,$teacher){
+
+
+        $connect = new Connection();
+        $students_obj = new Student();
+        $all_the_students = $students_obj->allTheStudentForAttendance($semester,$course,$teacher);
+
+        while($single_students = $all_the_students->fetch_object()){
+
+            if(in_array($single_students->id,$students)){
+
+                $query_attendance = "update attendance set present=1 where student_id ='$single_students->id'and date='$date' and course_id='$course' and semester_id = '$semester' and teacher_id='$teacher'";
+                $connect->connect()->query($query_attendance);
+            }else{
+                $query_attendance = "update attendance set present=0 where student_id ='$single_students->id'and date='$date' and course_id='$course' and semester_id = '$semester' and teacher_id='$teacher'";
+
+                $connect->connect()->query($query_attendance);
+            }
+
+        }
+
+
+
+
+
+    }
+
 }

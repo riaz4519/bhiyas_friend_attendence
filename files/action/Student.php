@@ -90,6 +90,12 @@ class Student
 
     public function alreadyTakenAttendance($semester_id,$course_id,$teacher_id,$date){
 
+        $connect = new Connection();
+
+
+        $query = "select student.name as name,student.student_id as student_id,student.id as id,attendance.present as present from student join attendance on attendance.student_id = student.id where attendance.semester_id ='$semester_id' and attendance.course_id = '$course_id' and attendance.teacher_id = '$teacher_id' and attendance.date ='$date'";
+
+        return $query_students = $connect->connect()->query($query);
 
     }
 

@@ -51,5 +51,20 @@ class Course
 
 
     }
+    public function getAllCourseOfTeacher($semester_id){
+
+        $connect = new Connection();
+        $teacher_id = $_SESSION['teacher_id'];
+        $query = "select course.course_name as course_name,course.id as id from course_teacher join course on course.id = course_teacher.course_id where course_teacher.teacher_id ='$teacher_id' and course_teacher.semester_id='$semester_id'";
+        try{
+            return $connect->connect()->query($query);
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
+
+    }
 
 }
