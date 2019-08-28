@@ -191,10 +191,12 @@ if (isset($_POST['download'])){
 
                                 <div class="search-for-course">
 
-                                    <form action="action/dload.php" method="post">
+                                    <form id="download_report_form" action="action/dload.php" method="post">
 
 
-                                        <input type="text" name="semester_id" value="<?php echo $_GET['semester'] ?>" hidden>
+                                        <input type="text" id="semester_id" name="semester_id" value="<?php echo $_GET['semester'] ?>" hidden>
+                                        <input type="text" id="teacher_id" name="teacher_id" value="<?php echo $_SESSION['teacher_id'] ?>" hidden>
+
 
                                         <?php
 
@@ -211,7 +213,7 @@ if (isset($_POST['download'])){
 
                                             <div class="col">
                                                 <label for="course_name">Course Name</label>
-                                                <select id="course_name" name="course_id" class="form-control" required>
+                                                <select id="course_id" name="course_id" class="form-control" required>
 
 
 
@@ -261,7 +263,8 @@ if (isset($_POST['download'])){
 
                                         ?>
 
-                                        <input type="submit" name="download" value="Download" class="btn btn-secondary mt-5 text-center">
+
+                                        <a href=""  id="download_button" class="btn btn-secondary mt-5 text-center" style="display: none">Download</a>
 
                                     </form>
 
@@ -299,6 +302,64 @@ if (isset($_POST['download'])){
 
 <!--scripts jquery and bootstrap-->
 <?php include "../partials/basic_script.php"; ?>
+
+<script>
+    $(document).ready(function () {
+
+
+        var start_date = $('#start_date');
+
+        var end_date = $('#end_date');
+
+
+
+        var bool_start = false;
+
+        var bool_end = false;
+
+        start_date.on('change',function () {
+
+            checkForProceed();
+            bool_start = true;
+
+        });
+
+        end_date.on('change',function () {
+
+            checkForProceed();
+            bool_end = true;
+        });
+
+
+
+        function checkForProceed() {
+
+            var downloadButton = $('#download_button');
+
+
+            if (start_date.val().length > 0 && end_date.val().length > 0){
+
+                var teacher_id = $('#teacher_id').val();
+                var semester_id = $('#semester_id').val();
+                var course_id = $('#course_id').val();
+                var startDateValue = start_date.val();
+                var endDateValue = end_date.val();
+                downloadButton.attr('href',`action/dload.php?teacher_id=${teacher_id}&semester_id=${semester_id}&course_id=${course_id}&start_date=${startDateValue}&end_date=${endDateValue}`);
+                downloadButton.show();
+            } else{
+
+                downloadButton.hide();
+            }
+
+
+        }
+
+
+
+
+
+    });
+</script>
 
 <!--footer tags body and html-->
 <?php include "../partials/footer_tag.php"; ?>
