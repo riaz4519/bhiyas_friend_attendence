@@ -31,6 +31,12 @@ for ($i = 3; $i<$data->num_rows +3;$i++){
 
 }
 
+//adding the last two row
+$sheet->setCellValueByColumnAndRow($i,1,'Total Class');
+$i = $i+1;
+$sheet->setCellValueByColumnAndRow($i,1,'Total Present');
+
+
 //select all the student
 
 $select_student = "select student.id as id ,student.name as name ,student.student_id from student join course_student on student.id = course_student.student_id where course_id = '$course_id' and semester_id='$semester_id'and teacher_id = '$teacher_id'";
@@ -48,6 +54,8 @@ for ($i = 2;$i<=$select_student_data->num_rows + 1; $i++){
     $sheet->setCellValueByColumnAndRow(1,$i,$single_student->name);
     $sheet->setCellValueByColumnAndRow(2,$i,$single_student->student_id);
 
+    $total_present = 0;
+
     for ($col = 3 ; $col < $data->num_rows + 3;$col++){
 
         $date_from_sheet = $sheet->getCellByColumnAndRow($col,1);
@@ -56,9 +64,16 @@ for ($i = 2;$i<=$select_student_data->num_rows + 1; $i++){
 
         $absent_result = $connection->connect()->query($query_present_absent);
 
-        $sheet->setCellValueByColumnAndRow($col,$i,$absent_result->fetch_object()->present);
+        $present = $absent_result->fetch_object()->present;
+        $sheet->setCellValueByColumnAndRow($col,$i,$present);
+
+        $total_present += $present;
 
     }
+    $sheet->setCellValueByColumnAndRow($col,$i,$data->num_rows);
+    $col = $col+1;
+    $sheet->setCellValueByColumnAndRow($col,$i,$total_present);
+
 
 }
 
