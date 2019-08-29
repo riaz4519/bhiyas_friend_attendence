@@ -1,42 +1,33 @@
 
 
-
 <!--top meta tags-->
 <?php include "../partials/header_meta.php"?>
-<?php
 
-if (!isset($_SESSION['admin_id'])) {
-
-    header('Location: index.php');
-}
-
-
-?>
-
+<!--after submit-->
 <?php
 
 include 'action/Connection.php';
-include 'action/Teacher.php';
+include 'action/Course.php';
 include 'action/Department.php';
 
-/*when the register button is clicked it will come here*/
-if(isset($_POST['update_teacher'])){
+if(isset($_POST['update_course'])){
+
+    /**/
 
 
-    /*making object of teacher class*/
-    $teacher = new Teacher();
+    //making object
+    $course = new Course();
+    //
+    $course->update($_POST['course_code'],$_POST['course_name'],$_POST['department_id'],$_POST['course_credit'],$_POST['course_id']);
 
-    /*sending the values to teacher class - register function*/
-    $result = $teacher->update($_POST['teacher_id'],$_POST['teacher_name'],$_POST['teacher_email'],$_POST['department_id'],$_POST['teacher_id_primary']);
 
 }
 
-/*end of register*/
-
 
 ?>
+
 <!--title tag will be there always-->
-<title>Update Teacher Info</title>
+<title>Course</title>
 
 <!--style bootstrap css -->
 <?php include '../partials/basic_css.php'?>
@@ -66,44 +57,46 @@ if(isset($_POST['update_teacher'])){
         </div>
 
 
-        <div class="col-9">
+        <div class="col-10">
 
             <div class="row justify-content-center">
 
+                <!--course register register-->
                 <div class="col-8">
-
 
                     <div class="card">
 
                         <div class="card-header">
-                            <h3 class="text-center">Edit Teacher Info
-                            <?php if (isset($_SESSION['update_teacher'])){
-                                ?>
-                                <sub class="btn btn-success">Teacher Info Updated</sub>
+                            <h3 class="text-center">Update Course
+                            <?php
+
+                                if (isset($_SESSION['course_update'])){
+
+                                    ?>
+
+                                    <sub class="btn btn-success">Course Update</sub>
+
                                 <?php
-                                unset($_SESSION['update_teacher']);
-                            } ?></h3>
+                                    unset($_SESSION['course_update']);
+                                }
+
+                            ?>
+                            </h3>
 
 
                         </div>
 
                         <div class="card-body">
 
-                            <form action="<?php echo  $_SERVER['PHP_SELF']."?teacher_id=".$_GET['teacher_id']?>" method="post">
-
-
-                                <!--teacher info-->
+                            <form action="<?php echo  $_SERVER['PHP_SELF']."?course_id=".$_GET['course_id']?>" method="post">
 
                                 <?php
 
-                                    $teacher = new Teacher();
+                                $course = new Course();
 
-                                    $teacher_info = $teacher->singleTeacher($_GET['teacher_id'])->fetch_object();
+                                $course_info = $course->getSingleCourse($_GET['course_id'])
 
                                 ?>
-
-                                <!--end teacher info-->
-
 
                                 <div class="form-group">
 
@@ -123,7 +116,7 @@ if(isset($_POST['update_teacher'])){
                                         while ($single_dept = $departments->fetch_object()){
 
                                             ?>
-                                            <option <?php if ($teacher_info->department_id == $single_dept->id ) echo 'selected'?> value="<?php echo $single_dept->id ?>"><?php echo  $single_dept->name ?></option>
+                                            <option <?php if ($course_info->department_id == $single_dept->id) echo 'selected'?> value="<?php echo $single_dept->id ?>"><?php echo  $single_dept->name ?></option>
 
                                         <?php } ?>
 
@@ -132,37 +125,33 @@ if(isset($_POST['update_teacher'])){
                                 </div>
                                 <div class="form-group">
 
-                                    <label for="teacher_id">Teacher ID (unique)</label>
-                                    <input type="text" class="form-control" value="<?php echo $teacher_info->teacher_id_number ?>" id="teacher_id" name="teacher_id" required>
+                                    <label for="course_code">Course Code</label>
+                                    <input type="text" class="form-control" value="<?php echo $course_info->course_code?>" id="course_code" name="course_code" required>
 
                                 </div>
 
                                 <div class="form-group">
 
-                                    <label for="teacher_name">Teacher Name</label>
-                                    <input type="text" value="<?php echo $teacher_info->name ?>" class="form-control" id="teacher_name" name="teacher_name"   required>
+                                    <label for="course_name">Course Name</label>
+                                    <input type="text" class="form-control"  value="<?php echo $course_info->course_name?>" id="course_name" name="course_name"   required>
 
                                 </div>
-
                                 <div class="form-group">
 
-                                    <label for="teacher_email">Email</label>
-                                    <input type="email" value="<?php echo $teacher_info->email ?>" class="form-control" id="teacher_email" name="teacher_email"  required>
+                                    <label for="course_credit">Course Credit</label>
+                                    <input type="text" class="form-control"  value="<?php echo $course_info->credit?>" id="course_credit" name="course_credit"   required>
 
                                 </div>
 
-                                <input type="text" value="<?php echo $_GET['teacher_id'] ?>"   name="teacher_id_primary" hidden required>
-
-
-
+                                <input type="text" class="form-control" name="course_id" value="<?php echo $course_info->id?>" hidden  required>
 
 
                                 <div class="form-group text-center">
 
-                                    <input type="submit" class="btn btn-primary btn-lg" value="Update" name="update_teacher">
+                                    <input type="submit" class="btn btn-success " name="update_course" value="Update">
+
 
                                 </div>
-
 
 
                             </form>
@@ -172,7 +161,10 @@ if(isset($_POST['update_teacher'])){
 
 
 
+
                 </div>
+
+
 
             </div>
 

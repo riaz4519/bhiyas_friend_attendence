@@ -309,17 +309,21 @@ class Teacher
         return $connection->connect()->query($query);
 
     }
-    public function update($teacher_id,$teacher_name,$email,$password,$department_id){
+    public function update($teacher_id,$teacher_name,$email,$department_id,$primary_id){
 
         $connect = new Connection();
         /*query of registering the teacher */
-        $query = "insert into teacher(teacher_id_number,name,email,password,department_id)values ('$teacher_id','$teacher_name','$email','$password','$department_id')";
+        $update_query = "update teacher set teacher_id_number  = '$teacher_id' ,name='$teacher_name',email='$email',department_id='$department_id' where id = '$primary_id'";
+        //$query = "insert into teacher(teacher_id_number,name,email,password,department_id)values ('$teacher_id','$teacher_name','$email','$password','$department_id')";
 
 
         try{
 
             /*executing the  query*/
-            return $teacher_register =  $connect->connect()->query($query);
+            $connect->connect()->query($update_query);
+
+            $_SESSION['update_teacher'] = 'updated';
+
 
 
         }catch (Exception $exception){

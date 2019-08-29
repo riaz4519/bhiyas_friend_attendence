@@ -57,7 +57,7 @@ if(isset($_POST['submit_department'])){
             <div class="row justify-content-center">
 
                 <!--department register-->
-                <div class="col-6">
+                <div class="col-5">
 
                     <div class="card">
 
@@ -105,7 +105,7 @@ if(isset($_POST['submit_department'])){
                 </div>
 
                 <!--all the departments-->
-                <div class="col-5">
+                <div class="col-7">
 
                     <div class="card">
 
@@ -123,6 +123,7 @@ if(isset($_POST['submit_department'])){
                                 <tr>
                                     <th>Dep. Name</th>
                                     <th>Dep. Short Name</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
 
@@ -146,6 +147,7 @@ if(isset($_POST['submit_department'])){
                                     <tr>
                                         <td><?php echo $department->name ?></td>
                                         <td><?php echo $department->sort_name ?></td>
+                                        <td ><a href="department_update.php?dept_id=<?php echo $department->id ?>" class="btn btn-primary">Edit</a></td>
                                     </tr>
 
                                     <?php

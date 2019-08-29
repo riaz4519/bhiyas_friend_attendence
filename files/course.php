@@ -141,7 +141,7 @@ if(isset($_POST['submit_course'])){
                 </div>
 
                 <!--all the course-->
-                <div class="col-6">
+                <div class="col-7">
 
                     <div class="card">
 
@@ -161,6 +161,7 @@ if(isset($_POST['submit_course'])){
                                     <th>Course Name</th>
                                     <th>Credit</th>
                                     <th>Dept</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
 
@@ -186,6 +187,7 @@ if(isset($_POST['submit_course'])){
                                         <td><?php echo $course->course_name ?></td>
                                         <td><?php echo $course->credit ?></td>
                                         <td><?php echo $course->dept_sort ?></td>
+                                        <td><a href="course_update.php?course_id=<?php echo $course->id ?>" class="btn btn-primary">Edit</a></td>
                                     </tr>
 
                                     <?php

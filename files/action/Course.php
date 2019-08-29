@@ -66,5 +66,23 @@ class Course
 
 
     }
+    public function update($course_code,$course_name,$department_id,$course_credit,$course_id){
+
+        $connect = new Connection();
+
+        //$query = "insert into course(course_code,course_name,department_id,credit)values ('$course_code','$course_name','$department_id','$course_credit')";
+        $update_query = "update course set course_code='$course_code',course_name='$course_name',department_id='$department_id',credit='$course_credit' where id = '$course_id'";
+
+        $_SESSION['course_update'] = 'updated';
+
+        try{
+            $result = $connect->connect()->query($update_query);
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+    }
+
+
 
 }

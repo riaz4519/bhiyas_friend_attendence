@@ -99,4 +99,36 @@ class Student
 
     }
 
+    public function singleStudent($student_id){
+
+        $connection = new Connection();
+
+        $query = "select * from student where id ='$student_id' limit 1";
+
+        return $connection->connect()->query($query);
+
+    }
+    public function update($department_id,$name,$student_id,$email,$primary_id){
+
+        $connection = new Connection();
+
+        //$query = "insert into student(department_id,name,student_id,email)values ('$department_id','$name','$student_id','$email')";
+
+        $update_query = "update student set department_id='$department_id',name='$name',student_id='$student_id',email='$email' where id = '$primary_id' ";
+
+        try{
+
+            $connection->connect()->query($update_query);
+
+            $_SESSION['update_student'] = 'updated';
+
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+
+        }
+
+
+    }
+
 }

@@ -79,6 +79,7 @@ include 'action/Student.php';
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Department</th>
+                                        <th>Action</th>
                                     </tr>
 
                                 </thead>
@@ -101,6 +102,7 @@ include 'action/Student.php';
                                         <td><?php echo $student->name ?></td>
                                         <td><?php echo $student->email ?></td>
                                         <td><?php echo $student->depart ?></td>
+                                        <td><a href="student_profile_update.php?student_id=<?php echo $student->id ?>" class="btn btn-primary">Edit</a></td>
                                     </tr>
 
                                 <?php
