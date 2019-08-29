@@ -266,4 +266,70 @@ class Teacher
 
     }
 
+    public function allAttendanceForCourse($course,$semester){
+
+        $connect = new Connection();
+
+        $teacher_id = $_SESSION['teacher_id'];
+
+        $query = "select * from attendance_taken where course_id = '$course' and semester_id='$semester' and teacher_id='$teacher_id' order BY id desc ";
+
+        return $connect->connect()->query($query);
+
+    }
+
+    public function updatePassword($new_pass,$prev_pass){
+
+        $connection = new Connection();
+        $teacher_id = $_SESSION['teacher_id'];
+        $query = "select password from teacher where id ='$teacher_id' limit 1";
+
+        $password = $connection->connect()->query($query)->fetch_object()->password;
+
+        if ($password == $prev_pass){
+
+            $query_pass = "update teacher set password ='$new_pass' where id = '$teacher_id'";
+
+            if ($connection->connect()->query($query_pass)){
+
+                $_SESSION['update_pass'] = 'updated';
+
+            }
+
+        }
+
+    }
+
+    public function singleTeacher($teacher_id){
+
+        $connection = new Connection();
+
+        $query = "select * from teacher where id = '$teacher_id' limit 1";
+
+        return $connection->connect()->query($query);
+
+    }
+    public function update($teacher_id,$teacher_name,$email,$password,$department_id){
+
+        $connect = new Connection();
+        /*query of registering the teacher */
+        $query = "insert into teacher(teacher_id_number,name,email,password,department_id)values ('$teacher_id','$teacher_name','$email','$password','$department_id')";
+
+
+        try{
+
+            /*executing the  query*/
+            return $teacher_register =  $connect->connect()->query($query);
+
+
+        }catch (Exception $exception){
+
+            return $exception->getMessage();
+        }
+
+
+
+    }
+
+
 }

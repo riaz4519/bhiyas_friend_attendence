@@ -62,6 +62,7 @@ include 'action/Teacher.php';
                                     <th>Name </th>
                                     <th>Teacher Email</th>
                                     <th>Dept.</th>
+                                    <th>Action.</th>
 
                                 </tr>
 
@@ -88,6 +89,7 @@ include 'action/Teacher.php';
                                         <td><?php echo $teacher->name?></td>
                                         <td><?php echo $teacher->email?></td>
                                         <td><?php echo $teacher->dept_name?></td>
+                                        <td><a href="teacher_profile_update.php?teacher_id=<?php echo $teacher->id ?>"class="btn btn-primary">Edit</a></td>
                                     </tr>
 
                                     <?php

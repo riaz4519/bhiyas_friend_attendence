@@ -26,6 +26,7 @@ if (isset($_GET['set_date'])){
 
     $date = $_GET['date'];
 
+
     header('Location: '.$return_same."&date=".$date);
 
 }

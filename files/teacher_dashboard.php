@@ -46,7 +46,7 @@ include 'action/Connection.php';
 
                 <div class="col-10">
 
-                    <!--getting all the teacher-->
+
 
 
 

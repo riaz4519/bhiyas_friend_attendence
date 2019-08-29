@@ -170,6 +170,7 @@ include 'action/Semester.php';
                                             <th>Add Student</th>
                                             <th>Edit/Remove Student</th>
                                             <th>Attendance</th>
+                                            <th>List</th>
                                         </tr>
 
                                     </thead>
@@ -203,6 +204,7 @@ include 'action/Semester.php';
                                             <td><a href="techer_add_student.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-secondary">Add</a></td>
                                             <td><a href="" class="btn btn-danger">Edit/remove</a></td>
                                             <td><a href="teacher_take_attendance.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-success">Attendance</a></td>
+                                            <td><a href="student_attendance_list.php?course=<?php echo $added_course->id ?>&semester=<?php echo $_GET['semester'] ?>" class="btn btn-primary">List</a></td>
                                         </tr>
 
 

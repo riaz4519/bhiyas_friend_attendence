@@ -24,6 +24,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="action/logout.php">Logout</a>
+                    <a class="dropdown-item" href="admin_update_password.php">Update Password</a>
 
                 </div>
             </div>

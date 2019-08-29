@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-</div>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Attendance</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +24,11 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="action/logout.php">Logout</a>
+                    <a class="dropdown-item" href="teacher_update_password.php">Update Password</a>
 
                 </div>
             </div>
         </form>
     </div>
 </nav>
+</div>
