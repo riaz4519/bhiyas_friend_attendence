@@ -132,6 +132,7 @@ if(isset($_POST['submit_semester'])){
                                 <thead>
                                 <tr>
                                     <th>Semester</th>
+                                    <th>Action</th>
 
                                 </tr>
                                 </thead>
@@ -153,6 +154,7 @@ if(isset($_POST['submit_semester'])){
                                     ?>
                                     <tr>
                                         <td><?php echo $semester->semester ?></td>
+                                        <td><a href="semester_update.php?semester_id=<?php echo $semester->id ?>" class="btn btn-primary">Edit</a></td>
 
                                     </tr>
 
